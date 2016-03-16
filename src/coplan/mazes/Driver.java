@@ -3,7 +3,7 @@ package coplan.mazes;
 public class Driver {
 
 	public static void main(String[] args){
-		int x = 20, y = 20;
+		int x = 50, y = 50;
 		
 		Maze maze = new Generator(x, y).getMaze();
 		
