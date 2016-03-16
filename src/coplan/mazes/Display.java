@@ -119,6 +119,9 @@ public class Display {
 	public void drawMaze(Maze maze){
 		Graphics g = obtainGraphics();
 		
+		g.setColor(null);
+		g.fillRect(5, 5, 850, 850);
+		
 		int drawSize;
 		if(maze.getWidth() >= maze.getHeight()){
 			drawSize = 850 / maze.getWidth();

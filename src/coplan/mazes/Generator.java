@@ -55,7 +55,7 @@ public class Generator {
 		translation2Timer.stop();
 		System.out.println("Time to translate to cells: " + translation2Timer.getTimeElapsed());
 		
-		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed());
+		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed(), "for generation");
 		
 		
 	}

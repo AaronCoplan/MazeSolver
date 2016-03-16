@@ -25,8 +25,8 @@ public class ActionTimer {
 		return df.format(secondsElapsed);
 	}
 	
-	public static void sumTimes(String time1, String time2, String time3){
+	public static void sumTimes(String time1, String time2, String time3, String message){
 		double time = Double.parseDouble(time3) + Double.parseDouble(time2) + Double.parseDouble(time1);
-		System.out.println("Total time elapsed: " + new DecimalFormat("#.0000").format(time));
+		System.out.println("Total time elapsed " + message + ": " + new DecimalFormat("#.0000").format(time));
 	}
 }
