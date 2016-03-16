@@ -3,13 +3,13 @@ package coplan.mazes;
 public class Maze {
 
 	private int ROWS, COLS;
-	private int[][] binaryMaze;
-	private int[][] solution;
+	private Cell[][] cellMaze;
+	private Cell[][] solution;
 	
-	public Maze(int rows, int cols, int[][] binaryMaze){
+	public Maze(int rows, int cols, Cell[][] cellMaze){
 		this.ROWS = rows;
 		this.COLS = cols;
-		this.binaryMaze = binaryMaze;
+		this.cellMaze = cellMaze;
 		
 		this.solveMaze();
 		//calculate difficulty -> this.difficulty = calculateDifficulty(rows, cols, binaryMaze);
@@ -25,29 +25,12 @@ public class Maze {
 		this.solution = solver.getSolution();
 	}
 	
-	/*
-	private int calculateDifficulty(int rows, int cols, int[][] binaryMaze){
-		PERHAPS USE HOW COMPLEX IT IS TO COMPUTE THE SOLUTION TO DETERMINE THE DIFFICULTY
-		ALSO TAKE THE SIZE (W,H) INTO ACCOUNT
-	}
-	*/
-	
-	public void printBinary(){
-		for(int row = 0; row < ROWS; row++){
-			for(int col = 0; col < COLS; col++){
-				System.out.print(binaryMaze[row][col] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
+	public Cell[][] getCellMaze(){
+		return cellMaze;
 	}
 	
-	public int[][] getBinary(){
-		return this.binaryMaze;
-	}
-	
-	public int[][] getSolution(){
-		return this.solution;
+	public Cell[][] getSolution(){
+		return solution;
 	}
 	
 	public int getWidth(){
@@ -58,7 +41,14 @@ public class Maze {
 		return ROWS;
 	}
 	
+	
+	
 	/*
+	private int calculateDifficulty(int rows, int cols, int[][] binaryMaze){
+		PERHAPS USE HOW COMPLEX IT IS TO COMPUTE THE SOLUTION TO DETERMINE THE DIFFICULTY
+		ALSO TAKE THE SIZE (W,H) INTO ACCOUNT
+	}
+
 	public int getDifficulty(){
 		return difficulty;
 	}

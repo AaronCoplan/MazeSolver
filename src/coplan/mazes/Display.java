@@ -41,26 +41,52 @@ public class Display {
 			drawSize = 850 / maze.getHeight();
 		}
 		
-		int[][] mazeBinary = maze.getBinary();
+		//needs rewritten for cell implementation
+		Cell[][] cellMaze = maze.getCellMaze();
+		
+		final int LINE_SIZE = drawSize / 4;
 
-		while(true){
+		System.out.println("Draw Size: " + drawSize);
+		
+		int numPaints = 0;
+		while(numPaints < 5){
 			for(int row = 0; row < maze.getHeight(); row++){
 				for(int col = 0; col < maze.getWidth(); col++){
-					if(mazeBinary[row][col] == 1){
-						g.setColor(Color.BLACK); //wall
-					}else if(mazeBinary[row][col] == 0){
-						g.setColor(Color.WHITE); //opening
-					}else if(mazeBinary[row][col] == 3){
-						g.setColor(Color.CYAN); //start
-					}else if(mazeBinary[row][col] == 4){
-						g.setColor(Color.MAGENTA); //finish
-					}else if(mazeBinary[row][col] == 2){
-						g.setColor(Color.GREEN); //solution
+					
+					int x = (col*drawSize) + 5;
+					int y = (row*drawSize) + 5;
+					
+					g.setColor(Color.WHITE);
+					g.fillRect(x, y, drawSize, drawSize);
+
+					if(cellMaze[row][col].isBottomOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
 					}
 
-					g.fillRect((col*drawSize) + 5, (row*drawSize) + 5, drawSize, drawSize);
+					if(cellMaze[row][col].isLeftOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y, LINE_SIZE, drawSize);
+					}
+
+					if(cellMaze[row][col].isRightOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
+					}
+
+					if(cellMaze[row][col].isTopOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y, drawSize, LINE_SIZE);
+					}
+					
 				}
 			}
+			
+			numPaints++;
+			
+			try{
+				Thread.sleep(10);
+			}catch(InterruptedException e){}
 		}
 	}
 	
@@ -74,27 +100,7 @@ public class Display {
 			drawSize = 850 / maze.getHeight();
 		}
 		
-		int[][] solutionBinary = maze.getSolution();
-
-		while(true){
-			for(int row = 0; row < maze.getHeight(); row++){
-				for(int col = 0; col < maze.getWidth(); col++){
-					if(solutionBinary[row][col] == 1){
-						g.setColor(Color.BLACK); //wall
-					}else if(solutionBinary[row][col] == 0){
-						g.setColor(Color.WHITE); //opening
-					}else if(solutionBinary[row][col] == 3){
-						g.setColor(Color.CYAN); //start
-					}else if(solutionBinary[row][col] == 4){
-						g.setColor(Color.MAGENTA); //finish
-					}else if(solutionBinary[row][col] == 2){
-						g.setColor(Color.GREEN); //solution
-					}
-
-					g.fillRect((col*drawSize) + 5, (row*drawSize) + 5, drawSize, drawSize);
-				}
-			}
-		}
+		//needs rewritten for cell implementation
 	}
 
 	private Graphics obtainGraphics(){

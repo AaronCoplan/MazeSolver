@@ -28,6 +28,7 @@ public class Generator {
 	private int COLUMNS; //same as width
 	private int ROWS; //same as height
 	private int[][] binaryMaze;
+	private Cell[][] cellMaze;
  
 	public Generator(int x, int y) {
 		this.x = x;
@@ -42,17 +43,55 @@ public class Generator {
 		generationTimer.stop();
 		System.out.println("Time to generate maze: " + generationTimer.getTimeElapsed());
 		
-		ActionTimer translationTimer = new ActionTimer();
-		translationTimer.start();
+		ActionTimer translation1Timer = new ActionTimer();
+		translation1Timer.start();
 		this.binaryMaze = translateToBinary();
-		translationTimer.stop();
-		System.out.println("Time to translate to binary: " + translationTimer.getTimeElapsed());
+		translation1Timer.stop();
+		System.out.println("Time to translate to binary: " + translation1Timer.getTimeElapsed());
 		
-		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translationTimer.getTimeElapsed());
+		ActionTimer translation2Timer = new ActionTimer();
+		translation2Timer.start();
+		this.cellMaze = translateToCells();
+		translation2Timer.stop();
+		System.out.println("Time to translate to cells: " + translation2Timer.getTimeElapsed());
+		
+		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed());
+		
+		
 	}
 	
 	public Maze getMaze(){
-		return new Maze(ROWS, COLUMNS, binaryMaze);
+		return new Maze(x, y, cellMaze);
+	}
+	
+	private Cell[][] translateToCells(){
+		Cell[][] maze = new Cell[this.y][this.x];
+	
+		//translate here
+		int cellRow = 0;
+		int cellCol = 0;
+		
+		for(int row = 1; row <= ROWS-2; row += 2){
+			for(int col = 1; col <= COLUMNS-2; col += 2){
+				//check its adjacent borders for openings or walls
+				
+				int topOpening = binaryMaze[row-1][col];
+				int bottomOpening = binaryMaze[row+1][col];
+				int leftOpening = binaryMaze[row][col-1];
+				int rightOpening = binaryMaze[row][col+1];
+				
+				maze[cellRow][cellCol] = new Cell(topOpening, rightOpening, bottomOpening, leftOpening);
+				
+				cellCol++;
+			}
+			cellCol = 0;
+			cellRow++;
+		}
+		
+		maze[0][0].setAsStart();
+		maze[this.y-1][this.x-1].setAsEnd();
+		
+		return maze;
 	}
 	
 	private int[][] translateToBinary(){
@@ -106,6 +145,13 @@ public class Generator {
 		
 		binaryMaze[1][0] = 3;
 		binaryMaze[ROWS-2][COLUMNS-1] = 4;
+		
+		for(int row = 0; row < ROWS; row++){
+			for(int col = 0; col < COLUMNS; col++){
+				System.out.print(binaryMaze[row][col] + " ");
+			}
+			System.out.println();
+		}
 		
 		return binaryMaze;
 	}

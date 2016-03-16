@@ -4,81 +4,47 @@ import java.util.Arrays;
 
 public class Solver {
 
-	private int[][] binaryMaze;
-	private int[][] solvedMaze;
+	private Cell[][] cellMaze;
+	private Cell[][] solvedMaze;
 	
 	private int ROWS, COLS;
 	
 	public Solver(Maze maze){
 		this.ROWS = maze.getHeight();
 		this.COLS = maze.getWidth();
-		this.binaryMaze = maze.getBinary();
+		this.cellMaze = maze.getCellMaze();
 		
 		this.solvedMaze = solveMaze();
 	}
 	
-	private int[][] solveMaze(){
+	private Cell[][] solveMaze(){
 		//if it is a simple maze
 		return simpleSolution();
 		//else if it is complex
 		//return complexSolution();
 	}
 	
-	private int[][] simpleSolution(){
+	private Cell[][] simpleSolution(){
 		
-		solvedMaze = copy(binaryMaze);
+		//needs rewritten for cell implementation
 		
-		int numChanged;
-		
-		do{
-			numChanged = 0;
-			for(int row = 1; row < ROWS - 1; row++){
-				for(int col = 1; col < COLS - 1; col++){
-					int sum = 0;
-
-					if(solvedMaze[row-1][col] == 1){sum++;}
-					if(solvedMaze[row+1][col] == 1){sum++;}
-					if(solvedMaze[row][col-1] == 1){sum++;}
-					if(solvedMaze[row][col+1] == 1){sum++;}
-
-					if(sum >= 3){
-						if(solvedMaze[row][col] != 1){
-							solvedMaze[row][col] = 1;
-							numChanged++;
-						}
-					}
-				}
-			}
-		}while(numChanged != 0);
-		
-		for(int row = 1; row < ROWS - 1; row++){
-			for(int col = 1; col < COLS - 1; col++){
-				if(solvedMaze[row][col] == 0){
-					solvedMaze[row][col] = 2;
-				}
-			}
-		}
-		
-		for(int row = 1; row < ROWS - 1; row++){
-			for(int col = 1; col < COLS - 1; col++){
-				if(solvedMaze[row][col] != 2){
-					solvedMaze[row][col] = binaryMaze[row][col];
-				}
-			}
-		}
+		solvedMaze = copy(cellMaze);
 
 		return solvedMaze;
 	}
 	
-	private int[][] complexSolution() {
+	private Cell[][] complexSolution() {
 		
-		solvedMaze = copy(binaryMaze);
+		//needs written with cell implementation in mind
+		
+		solvedMaze = copy(cellMaze);
 
 		return solvedMaze;
 	}
 	
-	private int[][] copy(int[][] array){
-		int[][] copy = new int[array.length][array[0].length];
+	private Cell[][] copy(Cell[][] array){
+		
+		Cell[][] copy = new Cell[array.length][array[0].length];
 		
 		for(int row = 0; row < array.length; row++){
 			for(int col = 0; col < array[0].length; col++){
@@ -89,7 +55,7 @@ public class Solver {
 		return copy;
 	}
 	
-	public int[][] getSolution(){
+	public Cell[][] getSolution(){
 		return this.solvedMaze;
 	}
 }
