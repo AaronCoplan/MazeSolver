@@ -146,13 +146,6 @@ public class Generator {
 		binaryMaze[1][0] = 3;
 		binaryMaze[ROWS-2][COLUMNS-1] = 4;
 		
-		for(int row = 0; row < ROWS; row++){
-			for(int col = 0; col < COLUMNS; col++){
-				System.out.print(binaryMaze[row][col] + " ");
-			}
-			System.out.println();
-		}
-		
 		return binaryMaze;
 	}
  
