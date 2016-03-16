@@ -61,7 +61,7 @@ public class Generator {
 	}
 	
 	public Maze getMaze(){
-		return new Maze(x, y, cellMaze);
+		return new Maze(y, x, cellMaze);
 	}
 	
 	private Cell[][] translateToCells(){
