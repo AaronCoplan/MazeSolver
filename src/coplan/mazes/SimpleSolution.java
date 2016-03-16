@@ -2,12 +2,12 @@ package coplan.mazes;
 
 public class SimpleSolution {
 
-	private int rows, cols;
+	private int ROWS, COLS;
 	private Cell[][] solutionMaze;
 	
 	public SimpleSolution(int rows, int cols, Cell[][] cellMaze){
-		this.rows = rows;
-		this.cols = cols;
+		this.ROWS = rows;
+		this.COLS = cols;
 		
 		//we want to copy it so that we aren't changing the actual maze
 		this.solutionMaze = copy(cellMaze);
@@ -16,6 +16,14 @@ public class SimpleSolution {
 	public Cell[][] solve(){
 
 		//add implementation here
+		
+		int numChanges = 0;
+		
+		do{
+			for(int row = 0; row < ROWS; ){
+				
+			}
+		}while(numChanges != 0);
 
 		return solutionMaze;
 	}

@@ -2,12 +2,12 @@ package coplan.mazes;
 
 public class ComplexSolution {
 
-	private int rows, cols;
+	private int ROWS, COLS;
 	private Cell[][] solutionMaze;
 	
 	public ComplexSolution(int rows, int cols, Cell[][] cellMaze){
-		this.rows = rows;
-		this.cols = cols;
+		this.ROWS = rows;
+		this.COLS = cols;
 		
 		//we want to copy it so that we aren't changing the actual maze
 		this.solutionMaze = copy(cellMaze);
