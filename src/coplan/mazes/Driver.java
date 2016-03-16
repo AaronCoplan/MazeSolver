@@ -1,9 +1,19 @@
 package coplan.mazes;
 
+import java.util.Scanner;
+
 public class Driver {
 
 	public static void main(String[] args){
-		int x = 50, y = 50;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		String xString = sc.nextLine();
+		String yString = sc.nextLine();
+		
+		int x = Integer.parseInt(xString);
+		int y = Integer.parseInt(yString);
+
 		
 		Maze maze = new Generator(x, y).getMaze();
 		
