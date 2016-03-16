@@ -3,11 +3,17 @@ package coplan.mazes;
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.*;
+import java.awt.event.*;
 
 public class Display {
 
 	private JFrame frame;
 	private JPanel contentPanel, mazePanel, uiPanel;
+	
+	private JTextField widthField, heightField;
+	private JButton generateMazeButton, showSolutionButton, printButton;
+	
+	private Maze maze;
 	
 	public Display(){
 		setUp();
@@ -21,6 +27,24 @@ public class Display {
 		this.contentPanel = new JPanel();
 		contentPanel.setLayout(new BorderLayout());
 		
+		createUIPanel();
+		
+		contentPanel.add(uiPanel, BorderLayout.EAST);
+		
+		this.mazePanel = new JPanel();
+		//width and height of 860 leaves padding of 5 on all sides of the maze
+		//true display of maze will be 850x850
+		mazePanel.setPreferredSize(new Dimension(860, 860));
+		contentPanel.add(mazePanel, BorderLayout.WEST);
+		
+		frame.getContentPane().add(contentPanel);
+		
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+	}
+	
+	private void createUIPanel(){
 		this.uiPanel = new JPanel();
 		uiPanel.setPreferredSize(new Dimension(150,860));
 		uiPanel.setLayout(new BorderLayout());
@@ -35,11 +59,13 @@ public class Display {
 		widthLabel.setPreferredSize(new Dimension(150, 50));
 		widthLabel.setFont(labelFont);
 		
-		JTextField widthValue = new JTextField();
-		widthValue.setPreferredSize(new Dimension(100, 75));
+		this.widthField = new JTextField();
+		widthField.setPreferredSize(new Dimension(100, 75));
+		widthField.setHorizontalAlignment(JTextField.CENTER);
+		widthField.setFont(labelFont);
 		
 		topContent.add(widthLabel, BorderLayout.NORTH);
-		topContent.add(widthValue, BorderLayout.CENTER);
+		topContent.add(widthField, BorderLayout.CENTER);
 		
 		JPanel centerContent = new JPanel();
 		centerContent.setPreferredSize(new Dimension(150,145));
@@ -49,55 +75,45 @@ public class Display {
 		heightLabel.setPreferredSize(new Dimension(150, 50));
 		heightLabel.setFont(labelFont);
 		
-		JTextField heightValue = new JTextField();
-		heightValue.setPreferredSize(new Dimension(100, 75));
+		this.heightField = new JTextField();
+		heightField.setPreferredSize(new Dimension(100, 75));
+		heightField.setHorizontalAlignment(JTextField.CENTER);
+		heightField.setFont(labelFont);
 		
 		JLabel blankLabel1 = new JLabel(" ");
 		blankLabel1.setPreferredSize(new Dimension(150,20));
 		
 		centerContent.add(heightLabel, BorderLayout.NORTH);
-		centerContent.add(heightValue, BorderLayout.CENTER);
+		centerContent.add(heightField, BorderLayout.CENTER);
 		centerContent.add(blankLabel1, BorderLayout.SOUTH);
 		
 		JPanel bottomContent = new JPanel();
 		bottomContent.setPreferredSize(new Dimension(150,590));
 		bottomContent.setLayout(new BorderLayout());
 		
-		JLabel blankLabel2 = new JLabel(" ");
-		blankLabel2.setPreferredSize(new Dimension(150, 20));
+		this.printButton = new JButton("Print Maze");
+		printButton.setPreferredSize(new Dimension(150, 140));
 		
-		JButton generateButton = new JButton("Generate Maze");
-		generateButton.setPreferredSize(new Dimension(150, 285));
+		this.generateMazeButton = new JButton("Generate Maze");
+		generateMazeButton.setPreferredSize(new Dimension(150, 225));
 		
-		JButton showSolutionButton = new JButton("Show Solution");
-		showSolutionButton.setPreferredSize(new Dimension(150,285));
+		this.showSolutionButton = new JButton("Show Solution");
+		showSolutionButton.setPreferredSize(new Dimension(150,225));
 		
-		bottomContent.add(blankLabel2, BorderLayout.CENTER);
-		bottomContent.add(generateButton, BorderLayout.NORTH);
-		bottomContent.add(showSolutionButton, BorderLayout.SOUTH);
+		//add an action listener for the buttons
+		ButtonListener listener = new ButtonListener();
+		printButton.addActionListener(listener);
+		generateMazeButton.addActionListener(listener);
+		showSolutionButton.addActionListener(listener);
+		
+		
+		bottomContent.add(printButton, BorderLayout.SOUTH);
+		bottomContent.add(generateMazeButton, BorderLayout.NORTH);
+		bottomContent.add(showSolutionButton, BorderLayout.CENTER);
 		
 		uiPanel.add(topContent, BorderLayout.NORTH);
 		uiPanel.add(centerContent, BorderLayout.CENTER);
 		uiPanel.add(bottomContent, BorderLayout.SOUTH);
-		
-		//delete this later
-		uiPanel.setOpaque(true);
-		uiPanel.setBackground(Color.CYAN);
-		
-		contentPanel.add(uiPanel, BorderLayout.EAST);
-		
-		
-		this.mazePanel = new JPanel();
-		//width and height of 860 leaves padding of 5 on all sides of the maze
-		//true display of maze will be 850x850
-		mazePanel.setPreferredSize(new Dimension(860, 860));
-		contentPanel.add(mazePanel, BorderLayout.WEST);
-		
-		frame.getContentPane().add(contentPanel);
-		
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 	
 	public void drawMaze(Maze maze){
@@ -116,8 +132,7 @@ public class Display {
 
 		System.out.println("Draw Size: " + drawSize);
 		
-		int numPaints = 0;
-		while(numPaints < 5){
+		for(int count = 0; count < 5; count++){
 			for(int row = 0; row < maze.getHeight(); row++){
 				for(int col = 0; col < maze.getWidth(); col++){
 					
@@ -150,10 +165,9 @@ public class Display {
 				}
 			}
 			
-			numPaints++;
 			
 			try{
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			}catch(InterruptedException e){}
 		}
 	}
@@ -174,8 +188,7 @@ public class Display {
 
 		System.out.println("Draw Size: " + drawSize);
 		
-		int numPaints = 0;
-		while(numPaints < 5){
+		for(int count = 0; count < 50; count++){
 			for(int row = 0; row < maze.getHeight(); row++){
 				for(int col = 0; col < maze.getWidth(); col++){
 					
@@ -213,10 +226,8 @@ public class Display {
 				}
 			}
 			
-			numPaints++;
-			
 			try{
-				Thread.sleep(10);
+				Thread.sleep(100);
 			}catch(InterruptedException e){}
 		}
 	}
@@ -237,5 +248,64 @@ public class Display {
 		this.mazePanel.paint(bi.getGraphics());
 		
 		return bi;
+	}
+	
+	private class ButtonListener implements ActionListener {
+		
+		public void actionPerformed(ActionEvent e){
+			JButton source = (JButton) e.getSource();
+			
+			disableComponents();
+			
+			if(source.equals(generateMazeButton)){
+				new Thread(new Runnable(){
+					public void run(){
+						String width = widthField.getText();
+						String height = heightField.getText();
+
+						if(width == null || height == null){
+							JOptionPane.showMessageDialog(null, "Error! Either the width or height component is missing!", "ERROR", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+
+						int x = Integer.parseInt(width);
+						int y = Integer.parseInt(height);
+
+						Maze m = new Generator(x, y).getMaze();
+						maze = m;
+
+						drawMaze(m);
+					}}).start();
+			}else if(source.equals(showSolutionButton)){
+				new Thread(new Runnable(){
+					public void run(){
+						if(maze != null){
+							drawSolution(maze);
+						}else{
+							JOptionPane.showMessageDialog(null, "Error! There is no current maze to show the solution of!", "ERROR", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+					}
+				}).start();
+			}
+			
+			reenableComponents();
+		}
+		
+		private void disableComponents(){
+			generateMazeButton.setEnabled(false);
+			showSolutionButton.setEnabled(false);
+			printButton.setEnabled(false);
+			widthField.setEditable(false);
+			heightField.setEditable(false);
+		}
+		
+		private void reenableComponents(){
+			generateMazeButton.setEnabled(true);
+			showSolutionButton.setEnabled(true);
+			printButton.setEnabled(true);
+			widthField.setEditable(true);
+			heightField.setEditable(true);
+		}
 	}
 }
