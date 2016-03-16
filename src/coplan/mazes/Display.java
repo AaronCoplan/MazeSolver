@@ -1,9 +1,11 @@
 package coplan.mazes;
 
 import java.awt.*;
-import java.awt.image.*;
-import javax.swing.*;
 import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class Display {
 
@@ -14,6 +16,8 @@ public class Display {
 	private JButton generateMazeButton, showSolutionButton, printButton;
 	
 	private Maze maze;
+	
+	private BufferedImage mazeImage, solutionImage;
 	
 	public Display(){
 		setUp();
@@ -116,137 +120,128 @@ public class Display {
 		uiPanel.add(bottomContent, BorderLayout.SOUTH);
 	}
 	
-	public void drawMaze(Maze maze){
-		Graphics g = obtainGraphics();
+	public BufferedImage generateMazeImage(Maze maze){
+		BufferedImage mazeImage = new BufferedImage(850, 850, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = mazeImage.createGraphics();
 		
 		g.setColor(null);
 		g.fillRect(5, 5, 850, 850);
-		
+
 		int drawSize;
 		if(maze.getWidth() >= maze.getHeight()){
 			drawSize = 850 / maze.getWidth();
 		}else{
 			drawSize = 850 / maze.getHeight();
 		}
-		
+
 		Cell[][] cellMaze = maze.getCellMaze();
-		
+
 		final int LINE_SIZE = drawSize / 4;
 
-		for(int count = 0; count < 5; count++){
-			for(int row = 0; row < maze.getHeight(); row++){
-				for(int col = 0; col < maze.getWidth(); col++){
-					
-					int x = (col*drawSize) + 5;
-					int y = (row*drawSize) + 5;
-					
-					g.setColor(Color.WHITE);
-					g.fillRect(x, y, drawSize, drawSize);
+		for(int row = 0; row < maze.getHeight(); row++){
+			for(int col = 0; col < maze.getWidth(); col++){
 
-					if(cellMaze[row][col].isBottomOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
-					}
+				int x = (col*drawSize);
+				int y = (row*drawSize);
 
-					if(cellMaze[row][col].isLeftOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y, LINE_SIZE, drawSize);
-					}
+				g.setColor(Color.WHITE);
+				g.fillRect(x, y, drawSize, drawSize);
 
-					if(cellMaze[row][col].isRightOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
-					}
-
-					if(cellMaze[row][col].isTopOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y, drawSize, LINE_SIZE);
-					}
-					
+				if(cellMaze[row][col].isBottomOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
 				}
+
+				if(cellMaze[row][col].isLeftOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y, LINE_SIZE, drawSize);
+				}
+
+				if(cellMaze[row][col].isRightOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
+				}
+
+				if(cellMaze[row][col].isTopOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y, drawSize, LINE_SIZE);
+				}
+
 			}
-			
-			
-			try{
-				Thread.sleep(1000);
-			}catch(InterruptedException e){}
 		}
+
+		return mazeImage;
 	}
 	
-	public void drawSolution(Maze maze){
-		Graphics g = obtainGraphics();
-		
+	public BufferedImage generateSolutionImage(Maze maze){
+		BufferedImage solutionImage = new BufferedImage(850, 850, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = solutionImage.createGraphics();
+
 		int drawSize;
 		if(maze.getWidth() >= maze.getHeight()){
 			drawSize = 850 / maze.getWidth();
 		}else{
 			drawSize = 850 / maze.getHeight();
 		}
-		
+
 		Cell[][] solutionMaze = maze.getSolution();
-		
+
 		final int LINE_SIZE = drawSize / 4;
 
-		for(int count = 0; count < 50; count++){
-			for(int row = 0; row < maze.getHeight(); row++){
-				for(int col = 0; col < maze.getWidth(); col++){
-					
-					int x = (col*drawSize) + 5;
-					int y = (row*drawSize) + 5;
-					
-					if(solutionMaze[row][col].isSolutionCell()){
-						g.setColor(Color.GREEN);
-					}else{
-						g.setColor(Color.WHITE);
-					}
-					
-					g.fillRect(x, y, drawSize, drawSize);
+		for(int row = 0; row < maze.getHeight(); row++){
+			for(int col = 0; col < maze.getWidth(); col++){
 
-					if(solutionMaze[row][col].isBottomOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
-					}
+				int x = (col*drawSize);
+				int y = (row*drawSize);
 
-					if(solutionMaze[row][col].isLeftOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y, LINE_SIZE, drawSize);
-					}
-
-					if(solutionMaze[row][col].isRightOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
-					}
-
-					if(solutionMaze[row][col].isTopOpen() == false){
-						g.setColor(Color.BLACK);
-						g.fillRect(x, y, drawSize, LINE_SIZE);
-					}
-					
+				if(solutionMaze[row][col].isSolutionCell()){
+					g.setColor(Color.GREEN);
+				}else{
+					g.setColor(Color.WHITE);
 				}
+
+				g.fillRect(x, y, drawSize, drawSize);
+
+				if(solutionMaze[row][col].isBottomOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
+				}
+
+				if(solutionMaze[row][col].isLeftOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y, LINE_SIZE, drawSize);
+				}
+
+				if(solutionMaze[row][col].isRightOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
+				}
+
+				if(solutionMaze[row][col].isTopOpen() == false){
+					g.setColor(Color.BLACK);
+					g.fillRect(x, y, drawSize, LINE_SIZE);
+				}
+
 			}
-			
-			try{
-				Thread.sleep(100);
-			}catch(InterruptedException e){}
 		}
+
+		return solutionImage;
+	}
+	
+	private void drawMaze(){
+		
+	}
+	
+	private void drawSolution(){
+		
 	}
 
-	private Graphics obtainGraphics(){
-		Graphics g = null;
-		while((g = mazePanel.getGraphics()) == null){
-			try{
-				Thread.sleep(5);
-			}catch(InterruptedException e){}
-		}
-		
-		return g;
+	public BufferedImage getMazeImage(){
+		return this.mazeImage;
 	}
-
-	public BufferedImage getImage(){
-		BufferedImage bi = new BufferedImage(this.mazePanel.getWidth(), this.mazePanel.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		this.mazePanel.paint(bi.getGraphics());
-		
-		return bi;
+	
+	public BufferedImage getSolutionImage(){
+		return this.solutionImage;
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -273,13 +268,15 @@ public class Display {
 						Maze m = new Generator(x, y).getMaze();
 						maze = m;
 
-						drawMaze(m);
+						mazeImage = generateMazeImage(m);
+						drawMaze();
 					}}).start();
 			}else if(source.equals(showSolutionButton)){
 				new Thread(new Runnable(){
 					public void run(){
 						if(maze != null){
-							drawSolution(maze);
+							solutionImage = generateSolutionImage(maze);
+							drawSolution();
 						}else{
 							JOptionPane.showMessageDialog(null, "Error! There is no current maze to show the solution of!", "ERROR", JOptionPane.ERROR_MESSAGE);
 							return;
