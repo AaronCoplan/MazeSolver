@@ -26,38 +26,54 @@ public class Display {
 		uiPanel.setLayout(new BorderLayout());
 		
 		JPanel topContent = new JPanel();
-		topContent.setPreferredSize(new Dimension(150,250));
+		topContent.setPreferredSize(new Dimension(150,125));
 		topContent.setLayout(new BorderLayout());
 		
+		final Font labelFont = new Font("Arial", Font.BOLD, 22);
+		
 		JLabel widthLabel = new JLabel("Width:", JLabel.CENTER);
-		widthLabel.setPreferredSize(new Dimension(150, 150));
+		widthLabel.setPreferredSize(new Dimension(150, 50));
+		widthLabel.setFont(labelFont);
+		
 		JTextField widthValue = new JTextField();
+		widthValue.setPreferredSize(new Dimension(100, 75));
 		
 		topContent.add(widthLabel, BorderLayout.NORTH);
 		topContent.add(widthValue, BorderLayout.CENTER);
 		
 		JPanel centerContent = new JPanel();
-		centerContent.setPreferredSize(new Dimension(150,250));
+		centerContent.setPreferredSize(new Dimension(150,145));
 		centerContent.setLayout(new BorderLayout());
 		
 		JLabel heightLabel = new JLabel("Height:", JLabel.CENTER);
-		heightLabel.setPreferredSize(new Dimension(150, 150));
+		heightLabel.setPreferredSize(new Dimension(150, 50));
+		heightLabel.setFont(labelFont);
+		
 		JTextField heightValue = new JTextField();
+		heightValue.setPreferredSize(new Dimension(100, 75));
+		
+		JLabel blankLabel1 = new JLabel(" ");
+		blankLabel1.setPreferredSize(new Dimension(150,20));
 		
 		centerContent.add(heightLabel, BorderLayout.NORTH);
 		centerContent.add(heightValue, BorderLayout.CENTER);
+		centerContent.add(blankLabel1, BorderLayout.SOUTH);
 		
 		JPanel bottomContent = new JPanel();
-		bottomContent.setPreferredSize(new Dimension(150,360));
+		bottomContent.setPreferredSize(new Dimension(150,590));
 		bottomContent.setLayout(new BorderLayout());
 		
-		JLabel blankLabel = new JLabel(" ");
-		JButton generateButton = new JButton("Generate Maze");
-		JButton showSolutionButton = new JButton("Show Solution");
-		showSolutionButton.setPreferredSize(new Dimension(150,100));
+		JLabel blankLabel2 = new JLabel(" ");
+		blankLabel2.setPreferredSize(new Dimension(150, 20));
 		
-		bottomContent.add(blankLabel, BorderLayout.NORTH);
-		bottomContent.add(generateButton, BorderLayout.CENTER);
+		JButton generateButton = new JButton("Generate Maze");
+		generateButton.setPreferredSize(new Dimension(150, 285));
+		
+		JButton showSolutionButton = new JButton("Show Solution");
+		showSolutionButton.setPreferredSize(new Dimension(150,285));
+		
+		bottomContent.add(blankLabel2, BorderLayout.CENTER);
+		bottomContent.add(generateButton, BorderLayout.NORTH);
 		bottomContent.add(showSolutionButton, BorderLayout.SOUTH);
 		
 		uiPanel.add(topContent, BorderLayout.NORTH);
