@@ -20,7 +20,8 @@ public class Solver {
 	private int[][] solveMaze(){
 		//if it is a simple maze
 		return simpleSolution();
-		//else if it is complex -> complexSolution();
+		//else if it is complex
+		//return complexSolution();
 	}
 	
 	private int[][] simpleSolution(){
@@ -65,6 +66,13 @@ public class Solver {
 				}
 			}
 		}
+
+		return solvedMaze;
+	}
+	
+	private int[][] complexSolution() {
+		
+		solvedMaze = copy(binaryMaze);
 
 		return solvedMaze;
 	}
