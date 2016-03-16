@@ -24,8 +24,8 @@ public class Driver {
 		
 		Display d = new Display();
 		
-		d.drawMaze(maze);
-		//d.drawSolution(maze);		
+		//d.drawMaze(maze);
+		d.drawSolution(maze);		
 
 	}
 }

@@ -26,7 +26,16 @@ public class ComplexSolution {
 
 		for(int row = 0; row < array.length; row++){
 			for(int col = 0; col < array[0].length; col++){
-				copy[row][col] = array[row][col];
+				Cell c = array[row][col];
+				Cell newCell = new Cell(c.isTopOpen(), c.isRightOpen(), c.isBottomOpen(), c.isLeftOpen());
+				
+				if(c.isStart()){
+					newCell.setAsStart();
+				}else if(c.isEnd()){
+					newCell.setAsEnd();
+				}
+				
+				copy[row][col] = newCell;
 			}
 		}
 

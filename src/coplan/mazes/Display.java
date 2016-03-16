@@ -41,7 +41,6 @@ public class Display {
 			drawSize = 850 / maze.getHeight();
 		}
 		
-		//needs rewritten for cell implementation
 		Cell[][] cellMaze = maze.getCellMaze();
 		
 		final int LINE_SIZE = drawSize / 4;
@@ -100,7 +99,57 @@ public class Display {
 			drawSize = 850 / maze.getHeight();
 		}
 		
-		//needs rewritten for cell implementation
+		Cell[][] solutionMaze = maze.getSolution();
+		
+		final int LINE_SIZE = drawSize / 4;
+
+		System.out.println("Draw Size: " + drawSize);
+		
+		int numPaints = 0;
+		while(numPaints < 5){
+			for(int row = 0; row < maze.getHeight(); row++){
+				for(int col = 0; col < maze.getWidth(); col++){
+					
+					int x = (col*drawSize) + 5;
+					int y = (row*drawSize) + 5;
+					
+					if(solutionMaze[row][col].isSolutionCell()){
+						g.setColor(Color.GREEN);
+					}else{
+						g.setColor(Color.WHITE);
+					}
+					
+					g.fillRect(x, y, drawSize, drawSize);
+
+					if(solutionMaze[row][col].isBottomOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y+drawSize-LINE_SIZE, drawSize, LINE_SIZE);
+					}
+
+					if(solutionMaze[row][col].isLeftOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y, LINE_SIZE, drawSize);
+					}
+
+					if(solutionMaze[row][col].isRightOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x+drawSize-LINE_SIZE, y, LINE_SIZE, drawSize);
+					}
+
+					if(solutionMaze[row][col].isTopOpen() == false){
+						g.setColor(Color.BLACK);
+						g.fillRect(x, y, drawSize, LINE_SIZE);
+					}
+					
+				}
+			}
+			
+			numPaints++;
+			
+			try{
+				Thread.sleep(10);
+			}catch(InterruptedException e){}
+		}
 	}
 
 	private Graphics obtainGraphics(){

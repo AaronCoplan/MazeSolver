@@ -34,6 +34,13 @@ public class Cell {
 		this.numOpenings = calculateNumOpenings();
 	}
 	
+	public Cell(boolean topOpening, boolean rightOpening, boolean bottomOpening, boolean leftOpening){
+		this.topOpening = topOpening;
+		this.rightOpening = rightOpening;
+		this.bottomOpening = bottomOpening;
+		this.leftOpening = leftOpening;
+	}
+	
 	public void setAsStart(){
 		this.isStart = true;
 	}
@@ -65,24 +72,20 @@ public class Cell {
 		return total;
 	}
 	
-	public void changeLeftOpening(boolean state){
+	public void setLeftOpening(boolean state){
 		this.leftOpening = state;
-		updateNumOpenings();
 	}
 	
-	public void changeRightOpening(boolean state){
+	public void setRightOpening(boolean state){
 		this.rightOpening = state;
-		updateNumOpenings();
 	}
 	
-	public void changeTopOpening(boolean state){
+	public void setTopOpening(boolean state){
 		this.topOpening = state;
-		updateNumOpenings();
 	}
 	
-	public void changeBottomOpening(boolean state){
+	public void setBottomOpening(boolean state){
 		this.bottomOpening = state;
-		updateNumOpenings();
 	}
 	
 	public boolean isLeftOpen(){
@@ -102,6 +105,7 @@ public class Cell {
 	}
 	
 	public int getNumOpening(){
+		updateNumOpenings();
 		return this.numOpenings;
 	}
 	
@@ -114,7 +118,6 @@ public class Cell {
 	}
 	
 	public boolean isBox(){
-		//this is used for solving purposes
-		return this.getNumOpening() == 4;
+		return this.getNumOpening() == 0;
 	}
 }
