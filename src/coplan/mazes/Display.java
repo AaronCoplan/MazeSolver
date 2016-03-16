@@ -7,7 +7,7 @@ import javax.swing.*;
 public class Display {
 
 	private JFrame frame;
-	private JPanel mazePanel;
+	private JPanel contentPanel, mazePanel, uiPanel;
 	
 	public Display(){
 		setUp();
@@ -18,13 +18,66 @@ public class Display {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.mazePanel = new JPanel();
+		this.contentPanel = new JPanel();
+		contentPanel.setLayout(new BorderLayout());
 		
+		this.uiPanel = new JPanel();
+		uiPanel.setPreferredSize(new Dimension(150,860));
+		uiPanel.setLayout(new BorderLayout());
+		
+		JPanel topContent = new JPanel();
+		topContent.setPreferredSize(new Dimension(150,250));
+		topContent.setLayout(new BorderLayout());
+		
+		JLabel widthLabel = new JLabel("Width:", JLabel.CENTER);
+		widthLabel.setPreferredSize(new Dimension(150, 150));
+		JTextField widthValue = new JTextField();
+		
+		topContent.add(widthLabel, BorderLayout.NORTH);
+		topContent.add(widthValue, BorderLayout.CENTER);
+		
+		JPanel centerContent = new JPanel();
+		centerContent.setPreferredSize(new Dimension(150,250));
+		centerContent.setLayout(new BorderLayout());
+		
+		JLabel heightLabel = new JLabel("Height:", JLabel.CENTER);
+		heightLabel.setPreferredSize(new Dimension(150, 150));
+		JTextField heightValue = new JTextField();
+		
+		centerContent.add(heightLabel, BorderLayout.NORTH);
+		centerContent.add(heightValue, BorderLayout.CENTER);
+		
+		JPanel bottomContent = new JPanel();
+		bottomContent.setPreferredSize(new Dimension(150,360));
+		bottomContent.setLayout(new BorderLayout());
+		
+		JLabel blankLabel = new JLabel(" ");
+		JButton generateButton = new JButton("Generate Maze");
+		JButton showSolutionButton = new JButton("Show Solution");
+		showSolutionButton.setPreferredSize(new Dimension(150,100));
+		
+		bottomContent.add(blankLabel, BorderLayout.NORTH);
+		bottomContent.add(generateButton, BorderLayout.CENTER);
+		bottomContent.add(showSolutionButton, BorderLayout.SOUTH);
+		
+		uiPanel.add(topContent, BorderLayout.NORTH);
+		uiPanel.add(centerContent, BorderLayout.CENTER);
+		uiPanel.add(bottomContent, BorderLayout.SOUTH);
+		
+		//delete this later
+		uiPanel.setOpaque(true);
+		uiPanel.setBackground(Color.CYAN);
+		
+		contentPanel.add(uiPanel, BorderLayout.EAST);
+		
+		
+		this.mazePanel = new JPanel();
 		//width and height of 860 leaves padding of 5 on all sides of the maze
 		//true display of maze will be 850x850
 		mazePanel.setPreferredSize(new Dimension(860, 860));
+		contentPanel.add(mazePanel, BorderLayout.WEST);
 		
-		frame.getContentPane().add(mazePanel);
+		frame.getContentPane().add(contentPanel);
 		
 		frame.pack();
 		frame.setLocationRelativeTo(null);
