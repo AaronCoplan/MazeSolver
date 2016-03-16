@@ -130,8 +130,6 @@ public class Display {
 		
 		final int LINE_SIZE = drawSize / 4;
 
-		System.out.println("Draw Size: " + drawSize);
-		
 		for(int count = 0; count < 5; count++){
 			for(int row = 0; row < maze.getHeight(); row++){
 				for(int col = 0; col < maze.getWidth(); col++){
@@ -186,8 +184,6 @@ public class Display {
 		
 		final int LINE_SIZE = drawSize / 4;
 
-		System.out.println("Draw Size: " + drawSize);
-		
 		for(int count = 0; count < 50; count++){
 			for(int row = 0; row < maze.getHeight(); row++){
 				for(int col = 0; col < maze.getWidth(); col++){
