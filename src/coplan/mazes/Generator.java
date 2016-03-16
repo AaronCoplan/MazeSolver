@@ -49,6 +49,13 @@ public class Generator {
 		translation1Timer.stop();
 		System.out.println("Time to translate to binary: " + translation1Timer.getTimeElapsed());
 		
+		//added complex generation
+		ActionTimer complexTimer = new ActionTimer();
+		complexTimer.start();
+		makeComplex();
+		complexTimer.stop();
+		System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
+		
 		ActionTimer translation2Timer = new ActionTimer();
 		translation2Timer.start();
 		this.cellMaze = translateToCells();
@@ -149,6 +156,24 @@ public class Generator {
 		return binaryMaze;
 	}
  
+	private void makeComplex()
+	{
+		int area = ROWS*COLUMNS;
+		int numRemovals = area/20;
+		
+		while(numRemovals > 0)
+		{			
+			int randRow = 1 + (int)(Math.random()*(ROWS-1));
+			int randCol = 1 + (int)(Math.random()*(COLUMNS-1));
+			
+			if(binaryMaze[randRow][randCol] == 0)
+			{
+				binaryMaze[randRow][randCol] = 1;
+				numRemovals--;
+			}
+		}
+	}
+	
 	private void generateMaze(int cx, int cy){
 		DIR[] dirs = DIR.values();
 		Collections.shuffle(Arrays.asList(dirs));

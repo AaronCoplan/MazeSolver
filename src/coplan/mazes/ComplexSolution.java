@@ -15,7 +15,60 @@ public class ComplexSolution {
 
 	public Cell[][] solve(){
 
-		//add implementation here
+		boolean changeIsMade;
+		
+		do{
+			changeIsMade = false;
+			
+			for(int row = 0; row < ROWS; row++){
+				for(int col = 0; col < COLS; col++){
+					Cell c = solutionMaze[row][col];
+					
+					//have to make sure it only has one opening and is not the start or end of the maze
+					if(c.getNumOpening() == 1 && !c.isStart() && !c.isEnd()){
+						/*
+						 * having only 1 opening indicates it is a dead end
+						 * 1 opening implies it has 3 walls
+						 * thus, find and close off the fourth wall
+						 * do the corresponding action for its neighbor
+						*/
+						
+						if(c.isBottomOpen()){
+							c.setBottomOpening(false);
+							solutionMaze[row+1][col].setTopOpening(false);
+						}
+						
+						if(c.isTopOpen()){
+							c.setTopOpening(false);
+							solutionMaze[row-1][col].setBottomOpening(false);
+						}
+						
+						if(c.isLeftOpen()){
+							c.setLeftOpening(false);
+							solutionMaze[row][col-1].setRightOpening(false);
+						}
+						
+						if(c.isRightOpen()){
+							c.setRightOpening(false);
+							solutionMaze[row][col+1].setLeftOpening(false);
+						}
+						
+						changeIsMade = true;
+					}
+				}
+			}
+		}while(changeIsMade);
+		
+		for(int row = 0; row < ROWS; row++){
+			for(int col = 0; col < COLS; col++){
+				
+				if(!solutionMaze[row][col].isBox()){
+					solutionMaze[row][col].setAsSolutionCell();
+				}else{
+		//			solutionMaze[row][col] = cellMaze[row][col];
+				}
+			}
+		}
 
 		return solutionMaze;
 	}
