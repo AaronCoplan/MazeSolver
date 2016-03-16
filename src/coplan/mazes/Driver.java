@@ -10,8 +10,8 @@ public class Driver {
 		
 		Display d = new Display();
 		
-		//d.drawMaze(maze);
-		d.drawSolution(maze);		
+		d.drawMaze(maze);
+		//d.drawSolution(maze);		
 		
 		//TODO: make mazes into complex mazes by opening up more holes in walls, which may generate loops
 		//TODO: solve mazes, both simple and complex
