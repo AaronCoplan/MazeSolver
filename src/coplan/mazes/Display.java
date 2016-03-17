@@ -290,8 +290,16 @@ public class Display {
 
 						int x = Integer.parseInt(width);
 						int y = Integer.parseInt(height);
+						
+						boolean complex;
+						int response = JOptionPane.showConfirmDialog(null, "Do you want your maze to be complex?");
+						if(response == 0){
+							complex = true;
+						}else{
+							complex = false;
+						}
 
-						Maze m = new Generator(x, y).getMaze();
+						Maze m = new Generator(x, y, complex).getMaze();
 						maze = m;
 
 						mazeImage = generateMazeImage(m);

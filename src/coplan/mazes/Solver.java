@@ -12,14 +12,15 @@ public class Solver {
 		this.COLS = maze.getWidth();
 		this.cellMaze = maze.getCellMaze();
 		
-		this.solvedMaze = solveMaze();
+		this.solvedMaze = solveMaze(maze.isComplex());
 	}
 	
-	private Cell[][] solveMaze(){
-		//if it is a simple maze
-		return complexSolution();
-		//else if it is complex
-		//return complexSolution();
+	private Cell[][] solveMaze(boolean complex){
+		if(complex == true){
+			return complexSolution();
+		}else{
+			return simpleSolution();
+		}
 	}
 	
 	private Cell[][] simpleSolution(){

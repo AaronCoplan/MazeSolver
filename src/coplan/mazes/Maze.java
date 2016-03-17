@@ -5,11 +5,13 @@ public class Maze {
 	private int ROWS, COLS;
 	private Cell[][] cellMaze;
 	private Cell[][] solution;
+	private boolean complex;
 	
-	public Maze(int rows, int cols, Cell[][] cellMaze){
+	public Maze(int rows, int cols, Cell[][] cellMaze, boolean complex){
 		this.ROWS = rows;
 		this.COLS = cols;
 		this.cellMaze = cellMaze;
+		this.complex = complex;
 		
 		this.solveMaze();
 		//calculate difficulty -> this.difficulty = calculateDifficulty(rows, cols, binaryMaze);
@@ -39,6 +41,10 @@ public class Maze {
 	
 	public int getHeight(){
 		return ROWS;
+	}
+	
+	public boolean isComplex(){
+		return complex;
 	}
 	
 	

@@ -29,13 +29,15 @@ public class Generator {
 	private int ROWS; //same as height
 	private int[][] binaryMaze;
 	private Cell[][] cellMaze;
+	private boolean complex;
  
-	public Generator(int x, int y) {
+	public Generator(int x, int y, boolean complex) {
 		this.x = x;
 		this.y = y;
 		this.ROWS = (y * 2) + 1;
 		this.COLUMNS = (x * 2) + 1;
 		generationMaze = new int[this.x][this.y];
+		this.complex = complex;
 		
 		ActionTimer generationTimer = new ActionTimer();
 		generationTimer.start();
@@ -49,12 +51,14 @@ public class Generator {
 		translation1Timer.stop();
 		System.out.println("Time to translate to binary: " + translation1Timer.getTimeElapsed());
 		
-		//added complex generation
-		ActionTimer complexTimer = new ActionTimer();
-		complexTimer.start();
-		makeComplex();
-		complexTimer.stop();
-		System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
+		//if the complex variable is true, make it complex
+		if(complex == true){
+			ActionTimer complexTimer = new ActionTimer();
+			complexTimer.start();
+			makeComplex();
+			complexTimer.stop();
+			System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
+		}
 		
 		ActionTimer translation2Timer = new ActionTimer();
 		translation2Timer.start();
@@ -68,7 +72,7 @@ public class Generator {
 	}
 	
 	public Maze getMaze(){
-		return new Maze(y, x, cellMaze);
+		return new Maze(y, x, cellMaze, complex);
 	}
 	
 	private Cell[][] translateToCells(){
