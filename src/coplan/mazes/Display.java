@@ -150,7 +150,7 @@ public class Display {
 
 		Cell[][] cellMaze = maze.getCellMaze();
 
-		final int LINE_SIZE = drawSize / 4;
+		final int LINE_SIZE = drawSize / 10;
 
 		for(int row = 0; row < maze.getHeight(); row++){
 			for(int col = 0; col < maze.getWidth(); col++){
@@ -200,7 +200,7 @@ public class Display {
 
 		Cell[][] solutionMaze = maze.getSolution();
 
-		final int LINE_SIZE = drawSize / 4;
+		final int LINE_SIZE = drawSize / 10;
 
 		for(int row = 0; row < maze.getHeight(); row++){
 			for(int col = 0; col < maze.getWidth(); col++){
