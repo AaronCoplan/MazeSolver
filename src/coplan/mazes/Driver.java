@@ -6,7 +6,7 @@ public class Driver {
 		
 		//removed all code, all events are initialized & carried out in the GUI
 		
-		new Display();	
+		new Display().setUp();	
 
 	}
 }

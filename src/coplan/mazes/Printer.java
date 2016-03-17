@@ -1,6 +1,8 @@
 package coplan.mazes;
 
+import java.awt.PrintJob;
 import java.awt.image.*;
+import java.awt.print.*;
 import javax.print.*;
 import javax.print.attribute.*;
 import javax.print.attribute.standard.*;
@@ -9,22 +11,29 @@ import javax.imageio.*;
 
 public class Printer {
 
+	public static void main(String[] args){
+		Maze m = new Generator(10,10,false).getMaze();
+		Display display = new Display();
+		
+		BufferedImage bi = display.generateMazeImage(m);
+		
+		try{
+			printImage(bi);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void printImage(BufferedImage image) throws Exception {
-		PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();
-	    pras.add(new Copies(1));
-	    PrintService pss[] = PrintServiceLookup.lookupPrintServices(DocFlavor.INPUT_STREAM.GIF, pras);
-	    if (pss.length == 0)
-	      throw new RuntimeException("No printer services available.");
-	    PrintService ps = pss[0];
-	    System.out.println("Printing to " + ps);
-	    DocPrintJob job = ps.createPrintJob();
-
-	    ByteArrayOutputStream os = new ByteArrayOutputStream();
-	    ImageIO.write(image, "gif", os);
-	    InputStream is = new ByteArrayInputStream(os.toByteArray());
-	    
-	    Doc doc = new SimpleDoc(is, DocFlavor.INPUT_STREAM.GIF, null);
-	    job.print(doc, pras);
-	    is.close();
+		DocFlavor.INPUT_STREAM docFlavor = DocFlavor.INPUT_STREAM.GIF;
+		
+		PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
+		attributes.add(new Copies(1));
+		
+		PrintService[] services = PrintServiceLookup.lookupPrintServices(docFlavor, attributes);
+		for(PrintService ps : services){
+			System.out.println(ps.getName());
+		}
+	   
 	}
 }

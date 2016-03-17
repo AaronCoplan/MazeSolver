@@ -31,11 +31,9 @@ public class Display {
 	
 	private BufferedImage mazeImage, solutionImage;
 	
-	public Display(){
-		setUp();
-	}
+	public Display(){}
 	
-	private void setUp(){
+	public void setUp(){
 		this.frame = new JFrame();
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
