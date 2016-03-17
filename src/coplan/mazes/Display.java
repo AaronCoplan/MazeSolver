@@ -75,7 +75,9 @@ public class Display {
 		widthLabel.setPreferredSize(new Dimension(150, 50));
 		widthLabel.setFont(labelFont);
 		
-		this.widthField = new JTextField();
+		String defaultSize = "25";
+		
+		this.widthField = new JTextField(defaultSize);
 		widthField.setPreferredSize(new Dimension(100, 75));
 		widthField.setHorizontalAlignment(JTextField.CENTER);
 		widthField.setFont(labelFont);
@@ -91,7 +93,7 @@ public class Display {
 		heightLabel.setPreferredSize(new Dimension(150, 50));
 		heightLabel.setFont(labelFont);
 		
-		this.heightField = new JTextField();
+		this.heightField = new JTextField(defaultSize);
 		heightField.setPreferredSize(new Dimension(100, 75));
 		heightField.setHorizontalAlignment(JTextField.CENTER);
 		heightField.setFont(labelFont);

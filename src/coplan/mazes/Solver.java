@@ -17,7 +17,7 @@ public class Solver {
 	
 	private Cell[][] solveMaze(){
 		//if it is a simple maze
-		return simpleSolution();
+		return complexSolution();
 		//else if it is complex
 		//return complexSolution();
 	}

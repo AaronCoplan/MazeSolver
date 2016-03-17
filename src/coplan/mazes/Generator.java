@@ -163,12 +163,12 @@ public class Generator {
 		
 		while(numRemovals > 0)
 		{			
-			int randRow = 1 + (int)(Math.random()*(ROWS-1));
-			int randCol = 1 + (int)(Math.random()*(COLUMNS-1));
+			int randRow = 1 + (int)(Math.random()*(ROWS-2));
+			int randCol = 1 + (int)(Math.random()*(COLUMNS-2));
 			
-			if(binaryMaze[randRow][randCol] == 0)
+			if(binaryMaze[randRow][randCol] == 1)
 			{
-				binaryMaze[randRow][randCol] = 1;
+				binaryMaze[randRow][randCol] = 0;
 				numRemovals--;
 			}
 		}

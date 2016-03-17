@@ -18,8 +18,6 @@ public class SimpleSolution {
 
 	public Cell[][] solve(){
 
-		//add implementation here
-		
 		boolean changeIsMade;
 		
 		do{
@@ -64,20 +62,19 @@ public class SimpleSolution {
 			}
 		}while(changeIsMade);
 		
+		Cell[][] newSolutionMaze = copy(cellMaze);
+		
 		for(int row = 0; row < ROWS; row++){
 			for(int col = 0; col < COLS; col++){
-				
 				if(!solutionMaze[row][col].isBox()){
-					solutionMaze[row][col].setAsSolutionCell();
-				}else{
-					solutionMaze[row][col] = cellMaze[row][col];
+					newSolutionMaze[row][col].setAsSolutionCell();
 				}
 			}
 		}
 		
 		
 
-		return solutionMaze;
+		return newSolutionMaze;
 	}
 
 	private Cell[][] copy(Cell[][] array){
