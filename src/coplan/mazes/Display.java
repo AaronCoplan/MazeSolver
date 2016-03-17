@@ -30,6 +30,7 @@ public class Display {
 	private Maze maze;
 	
 	private BufferedImage mazeImage, solutionImage;
+	private boolean isSolutionDrawn = false;
 	
 	public Display(){}
 	
@@ -314,7 +315,12 @@ public class Display {
 					public void run(){
 						if(maze != null){
 							solutionImage = generateSolutionImage(maze);
-							drawSolution();
+							if(!isSolutionDrawn){
+								drawSolution();
+							}else{
+								drawMaze();
+							}
+							isSolutionDrawn = !isSolutionDrawn;
 						}else{
 							JOptionPane.showMessageDialog(null, "Error! There is no current maze to show the solution of!", "ERROR", JOptionPane.ERROR_MESSAGE);
 							return;
