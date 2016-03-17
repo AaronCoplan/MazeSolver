@@ -156,7 +156,11 @@ public class Display {
 				int x = (col*drawSize);
 				int y = (row*drawSize);
 
-				g.setColor(Color.WHITE);
+				if(cellMaze[row][col].isStart() || cellMaze[row][col].isEnd()){
+					g.setColor(Color.PINK);
+				}else{
+					g.setColor(Color.WHITE);
+				}
 				g.fillRect(x, y, drawSize, drawSize);
 
 				if(cellMaze[row][col].isBottomOpen() == false){
@@ -206,7 +210,9 @@ public class Display {
 				int x = (col*drawSize);
 				int y = (row*drawSize);
 
-				if(solutionMaze[row][col].isSolutionCell()){
+				if(solutionMaze[row][col].isStart() || solutionMaze[row][col].isEnd()){
+					g.setColor(Color.PINK);
+				}else if(solutionMaze[row][col].isSolutionCell()){
 					g.setColor(Color.GREEN);
 				}else{
 					g.setColor(Color.WHITE);
