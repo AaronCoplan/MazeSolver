@@ -1,18 +1,30 @@
 package coplan.mazes;
 
-import java.awt.PrintJob;
 import java.awt.image.*;
-import java.awt.print.*;
 import javax.print.*;
 import javax.print.attribute.*;
 import javax.print.attribute.standard.*;
 import java.io.*;
 import javax.imageio.*;
+import java.util.Scanner;
 
 public class Printer {
 
 	public static void main(String[] args){
-		Maze m = new Generator(90,90,false).getMaze();
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter the width of the maze:");
+		String xString = sc.nextLine();
+		
+		System.out.println("Enter the height of the maze:");
+		String yString = sc.nextLine();
+		
+		sc.close();
+		
+		int x = Integer.parseInt(xString);
+		int y = Integer.parseInt(yString);
+		
+		Maze m = new Generator(x,y,false).getMaze();
 		Display display = new Display();
 		
 		BufferedImage bi = display.generateMazeImage(m);
