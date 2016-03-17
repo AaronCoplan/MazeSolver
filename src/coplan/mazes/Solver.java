@@ -24,17 +24,11 @@ public class Solver {
 	}
 	
 	private Cell[][] simpleSolution(){
-		
-		//needs rewritten for cell implementation
 		return new SimpleSolution(ROWS, COLS, cellMaze).solve();
-		
 	}
 	
 	private Cell[][] complexSolution() {
-		
-		//needs written with cell implementation in mind
 		return new ComplexSolution(ROWS, COLS, cellMaze).solve();
-		
 	}
 	
 	public Cell[][] getSolution(){
