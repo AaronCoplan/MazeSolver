@@ -23,6 +23,7 @@ public class Maze {
 		ActionTimer timer = new ActionTimer();
 		timer.start();
 		Solver solver = new Solver(this);
+		
 		timer.stop();
 		System.out.println("Time to solve maze: " + timer.getTimeElapsed());
 		
