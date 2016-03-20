@@ -3,9 +3,11 @@ package coplan.mazes;
 public class Solver {
 
 	private Maze maze;
+	private Cell[][] solution;
 	
 	public Solver(Maze maze){
 		this.maze = maze;
+		this.solution = this.solveMaze(maze.isComplex());
 	}
 	
 	private Cell[][] solveMaze(boolean complex){
@@ -25,6 +27,6 @@ public class Solver {
 	}
 	
 	public Cell[][] getSolution(){
-		return this.maze.getSolution();
+		return this.solution;
 	}
 }

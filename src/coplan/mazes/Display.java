@@ -191,13 +191,6 @@ public class Display {
 	}
 	
 	public BufferedImage generateSolutionImage(Maze maze){
-		if(maze.getSolution() == null){
-			try{
-				throw new InterruptedException();
-			}catch(InterruptedException error){
-				error.printStackTrace();
-			}
-		}
 		BufferedImage solutionImage = new BufferedImage(850, 850, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = solutionImage.createGraphics();
 
@@ -210,7 +203,7 @@ public class Display {
 
 		Cell[][] solutionMaze = maze.getSolution();
 
-		final int LINE_SIZE = drawSize / 10;
+		final int LINE_SIZE = 5;
 
 		for(int row = 0; row < maze.getHeight(); row++){
 			for(int col = 0; col < maze.getWidth(); col++){
