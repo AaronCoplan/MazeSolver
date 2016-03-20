@@ -172,13 +172,13 @@ public class Generator {
 			
 			if(binaryMaze[randRow][randCol] == 1)
 			{
-				int numAdjPaths = 0;
-				if(binaryMaze[randRow][randCol + 1] == 0) { numAdjPaths++; }
-				if(binaryMaze[randRow][randCol - 1] == 0) { numAdjPaths++; }
-				if(binaryMaze[randRow + 1][randCol] == 0) { numAdjPaths++; }
-				if(binaryMaze[randRow - 1][randCol] == 0) { numAdjPaths++; }
+				int numAdjWalls = 0;
+				if(binaryMaze[randRow][randCol + 1] == 1) { numAdjWalls++; }
+				if(binaryMaze[randRow][randCol - 1] == 1) { numAdjWalls++; }
+				if(binaryMaze[randRow + 1][randCol] == 1) { numAdjWalls++; }
+				if(binaryMaze[randRow - 1][randCol] == 1) { numAdjWalls++; }
 
-				if(numAdjPaths < 3)
+				if(numAdjWalls > 1)
 				{
 					binaryMaze[randRow][randCol] = 0;
 					numRemovals--;
