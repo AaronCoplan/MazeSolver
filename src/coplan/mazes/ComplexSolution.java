@@ -23,6 +23,11 @@ public class ComplexSolution {
 		//we want to copy it so that we aren't changing the actual maze
 		this.solutionMaze = copy(cellMaze);
 	}
+	
+	//this is temporary - remove and write the actual solve method
+	public Cell[][] solve(){
+		return null;
+	}
 
 	/*
 	public Cell[][] solve()

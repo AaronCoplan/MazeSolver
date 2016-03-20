@@ -6,11 +6,12 @@ public class SimpleSolution {
 	private Cell[][] solutionMaze;
 	private Cell[][] cellMaze;
 	
-	public SimpleSolution(int rows, int cols, Cell[][] cellMaze){
-		this.ROWS = rows;
-		this.COLS = cols;
+	public SimpleSolution(Maze maze){
 		
-		this.cellMaze = cellMaze;
+		this.ROWS = maze.getHeight();
+		this.COLS = maze.getWidth();
+		
+		this.cellMaze = maze.getCellMaze();
 		
 		//we want to copy it so that we aren't changing the actual maze
 		this.solutionMaze = copy(cellMaze);

@@ -2,17 +2,10 @@ package coplan.mazes;
 
 public class Solver {
 
-	private Cell[][] cellMaze;
-	private Cell[][] solvedMaze;
-	
-	private int ROWS, COLS;
+	private Maze maze;
 	
 	public Solver(Maze maze){
-		this.ROWS = maze.getHeight();
-		this.COLS = maze.getWidth();
-		this.cellMaze = maze.getCellMaze();
-		
-		this.solvedMaze = solveMaze(maze.isComplex());
+		this.maze = maze;
 	}
 	
 	private Cell[][] solveMaze(boolean complex){
@@ -24,14 +17,14 @@ public class Solver {
 	}
 	
 	private Cell[][] simpleSolution(){
-		return new SimpleSolution(ROWS, COLS, cellMaze).solve();
+		return new SimpleSolution(maze).solve();
 	}
 	
 	private Cell[][] complexSolution() {
-		return new ComplexSolution(cellMaze).solve();
+		return new ComplexSolution(maze).solve();
 	}
 	
 	public Cell[][] getSolution(){
-		return this.solvedMaze;
+		return this.maze.getSolution();
 	}
 }

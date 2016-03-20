@@ -42,6 +42,8 @@ public class Maze {
 			}
 		}
 		
+		return new boolean[1][1];
+		
 	}
 	
 	public Cell[][] getCellMaze(){
