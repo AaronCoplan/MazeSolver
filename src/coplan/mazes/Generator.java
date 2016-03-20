@@ -172,8 +172,17 @@ public class Generator {
 			
 			if(binaryMaze[randRow][randCol] == 1)
 			{
-				binaryMaze[randRow][randCol] = 0;
-				numRemovals--;
+				int numAdjPaths = 0;
+				if(binaryMaze[randRow][randCol + 1] == 0) { numAdjPaths++; }
+				if(binaryMaze[randRow][randCol - 1] == 0) { numAdjPaths++; }
+				if(binaryMaze[randRow + 1][randCol] == 0) { numAdjPaths++; }
+				if(binaryMaze[randRow - 1][randCol] == 0) { numAdjPaths++; }
+
+				if(numAdjPaths < 3)
+				{
+					binaryMaze[randRow][randCol] = 0;
+					numRemovals--;
+				}
 			}
 		}
 	}
