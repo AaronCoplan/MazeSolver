@@ -28,7 +28,7 @@ public class Solver {
 	}
 	
 	private Cell[][] complexSolution() {
-		return new ComplexSolution(ROWS, COLS, cellMaze).solve();
+		return new ComplexSolution(cellMaze).solve();
 	}
 	
 	public Cell[][] getSolution(){

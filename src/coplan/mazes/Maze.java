@@ -4,7 +4,9 @@ public class Maze {
 
 	private int ROWS, COLS;
 	private Cell[][] cellMaze;
-	private Cell[][] solution;
+	private Cell[][] cellSolution;
+	private boolean[][] binaryMaze;
+	private boolean[][] binarySolution;
 	private boolean complex;
 	
 	public Maze(int rows, int cols, Cell[][] cellMaze, boolean complex){
@@ -24,7 +26,22 @@ public class Maze {
 		timer.stop();
 		System.out.println("Time to solve maze: " + timer.getTimeElapsed());
 		
-		this.solution = solver.getSolution();
+		this.cellSolution = solver.getSolution();
+	}
+	
+	//this needs implemented
+	public boolean[][] getBinaryMaze()
+	{
+		binaryMaze = new boolean[ROWS*2+1][COLS*2+1];
+		
+		for(int row = 0; row < ROWS*2+1; row++)
+		{
+			for(int col = 0; col < ROWS*2+1; col++)
+			{
+				
+			}
+		}
+		
 	}
 	
 	public Cell[][] getCellMaze(){
@@ -32,7 +49,7 @@ public class Maze {
 	}
 	
 	public Cell[][] getSolution(){
-		return solution;
+		return cellSolution;
 	}
 	
 	public int getWidth(){

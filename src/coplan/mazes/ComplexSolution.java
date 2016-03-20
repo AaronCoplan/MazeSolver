@@ -6,17 +6,53 @@ public class ComplexSolution {
 	private Cell[][] solutionMaze;
 	private Cell[][] cellMaze;
 	
-	public ComplexSolution(int rows, int cols, Cell[][] cellMaze){
-		this.ROWS = rows;
-		this.COLS = cols;
+	int beginX = 0;
+	int beginY = 0;
+	int endX = ROWS-1;
+	int endY = COLS-1;
+	
+	boolean[][] wasHere = new boolean[ROWS][COLS];
+	boolean[][] solutionCell = new boolean[ROWS][COLS];
+	
+	public ComplexSolution(Maze maze){
+		ROWS = maze.getWidth();
+		COLS = maze.getHeight();
 		
-		this.cellMaze = cellMaze;
+		cellMaze = maze.getCellMaze();
 		
 		//we want to copy it so that we aren't changing the actual maze
 		this.solutionMaze = copy(cellMaze);
 	}
 
-	public Cell[][] solve(){
+	/*
+	public Cell[][] solve()
+	{		
+		for(int row = 0; row < ROWS; row++)
+		{
+			for(int col = 0; col < COLS; col++)
+			{
+				wasHere[row][col] = false;
+				solutionCell = false;
+			}
+		}
+		
+		boolean b = recursiveSolve(beginX, beginY)
+	}
+	
+	public boolean recursiveSolve(int x, int y)
+	{
+		if(x == endX && y == endY)
+		{
+			return true;
+		}
+		if(Cell[x][y])
+	}
+	
+	
+	
+	
+	
+/*	public Cell[][] solve(){
 
 		boolean changeIsMade;
 		
@@ -34,7 +70,7 @@ public class ComplexSolution {
 						 * 1 opening implies it has 3 walls
 						 * thus, find and close off the fourth wall
 						 * do the corresponding action for its neighbor
-						*/
+						
 						
 						if(c.isBottomOpen()){
 							c.setBottomOpening(false);
@@ -117,15 +153,10 @@ public class ComplexSolution {
 
 		return newSolutionMaze;
 	}
+*/	
 
 	//you never use this...is this method needed?
 	//if not, delete it
-	private int numberCell(int precedingNum, int x, int y)
-	{
-		int number = precedingNum;
-		
-		return number;
-	}
 	
 	private Cell[][] copy(Cell[][] array){
 
