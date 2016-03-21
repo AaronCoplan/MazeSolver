@@ -51,15 +51,6 @@ public class Generator {
 		translation1Timer.stop();
 		System.out.println("Time to translate to binary: " + translation1Timer.getTimeElapsed());
 		
-		//if the complex variable is true, make it complex
-		if(complex == true){
-			ActionTimer complexTimer = new ActionTimer();
-			complexTimer.start();
-		//	makeComplex();
-			complexTimer.stop();
-			System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
-		}
-		
 		ActionTimer translation2Timer = new ActionTimer();
 		translation2Timer.start();
 		this.cellMaze = translateToCells();
@@ -67,15 +58,16 @@ public class Generator {
 		System.out.println("Time to translate to cells: " + translation2Timer.getTimeElapsed());
 		
 		//if the complex variable is true, make it complex
-		if(complex == true){
-			ActionTimer complexTimer = new ActionTimer();
+		ActionTimer complexTimer = new ActionTimer();
+		if(complex == true)
+		{
 			complexTimer.start();
 			makeCellComplex();
 			complexTimer.stop();
 			System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
 		}
 		
-		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed(), "for generation");
+		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed(), complexTimer.getTimeElapsed(), "for generation");
 		
 		
 	}
@@ -168,33 +160,6 @@ public class Generator {
 		
 		return binaryMaze;
 	}
- 
-	private void makeComplex()
-	{
-		int area = ROWS*COLUMNS;
-		int numRemovals = area/20;
-		
-		while(numRemovals > 0)
-		{			
-			int randRow = 1 + (int)(Math.random()*(ROWS-2));
-			int randCol = 1 + (int)(Math.random()*(COLUMNS-2));
-			
-			if(binaryMaze[randRow][randCol] == 1)
-			{
-				int numAdjWalls = 0;
-				if(binaryMaze[randRow][randCol + 1] == 1) { numAdjWalls++; }
-				if(binaryMaze[randRow][randCol - 1] == 1) { numAdjWalls++; }
-				if(binaryMaze[randRow + 1][randCol] == 1) { numAdjWalls++; }
-				if(binaryMaze[randRow - 1][randCol] == 1) { numAdjWalls++; }
-
-				if(numAdjWalls > 1)
-				{
-					binaryMaze[randRow][randCol] = 0;
-					numRemovals--;
-				}
-			}
-		}
-	}
 	
 	private void makeCellComplex()
 	{
@@ -202,7 +167,7 @@ public class Generator {
 		int numCols = cellMaze.length;
 		
 		int area = numRows*numCols;
-		int numRemovals = area/20;
+		int numRemovals = area/40;
 		
 		while(numRemovals > 0)
 		{			
@@ -261,10 +226,8 @@ public class Generator {
 	private int getRandomInt(int upperBound){
 		System.out.println(upperBound);
 		int randomInt;
-		
-		do{
-			randomInt = (int)(Math.random() * upperBound - 2) + 1;
-		}while(randomInt < (upperBound-1));
+
+		randomInt = (int)(Math.random()*(upperBound - 2)) + 1;
 		
 		return randomInt;
 	}
