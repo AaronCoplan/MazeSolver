@@ -209,7 +209,7 @@ public class Generator {
 			int randRow = (int)(Math.random()*(numRows));
 			int randCol = (int)(Math.random()*(numCols));	
 			
-			if(cellMaze[randRow][randCol].getNumOpening() > 2)
+			if(cellMaze[randRow][randCol].getNumOpening() > 1)
 			{
 				boolean wallWasRemoved = false;
 				do{
@@ -219,7 +219,7 @@ public class Generator {
 						if(!cellMaze[randRow][randCol].isLeftOpen())
 						{
 							cellMaze[randRow][randCol].setLeftOpening(true);
-							cellMaze[randRow-1][randCol].setRightOpening(true);
+							cellMaze[randRow][randCol-1].setRightOpening(true);
 							wallWasRemoved = true;
 						}
 					}
@@ -227,7 +227,7 @@ public class Generator {
 					{
 						{
 							cellMaze[randRow][randCol].setRightOpening(true);
-							cellMaze[randRow+1][randCol].setLeftOpening(true);
+							cellMaze[randRow][randCol+1].setLeftOpening(true);
 							wallWasRemoved = true;
 						}
 					}
@@ -235,7 +235,7 @@ public class Generator {
 					{
 						{
 							cellMaze[randRow][randCol].setTopOpening(true);
-							cellMaze[randRow][randCol+1].setBottomOpening(true);
+							cellMaze[randRow-1][randCol].setBottomOpening(true);
 							wallWasRemoved = true;
 						}
 					}
@@ -243,7 +243,7 @@ public class Generator {
 					{
 						{
 							cellMaze[randRow][randCol].setBottomOpening(true);
-							cellMaze[randRow][randCol-1].setTopOpening(true);
+							cellMaze[randRow+1][randCol].setTopOpening(true);
 							wallWasRemoved = true;
 						}
 					}
