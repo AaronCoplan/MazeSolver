@@ -227,6 +227,7 @@ public class Generator {
 					}
 					else if(randInt == 1)
 					{
+						if(!cellMaze[randRow][randCol].isRightOpen())
 						{
 							cellMaze[randRow][randCol].setRightOpening(true);
 							cellMaze[randRow][randCol+1].setLeftOpening(true);
@@ -235,6 +236,7 @@ public class Generator {
 					}
 					else if(randInt == 2)
 					{
+						if(!cellMaze[randRow][randCol].isTopOpen())
 						{
 							cellMaze[randRow][randCol].setTopOpening(true);
 							cellMaze[randRow-1][randCol].setBottomOpening(true);
@@ -243,6 +245,7 @@ public class Generator {
 					}
 					else if (randInt == 3)
 					{
+						if(!cellMaze[randRow][randCol].isBottomOpen())
 						{
 							cellMaze[randRow][randCol].setBottomOpening(true);
 							cellMaze[randRow+1][randCol].setTopOpening(true);
@@ -260,7 +263,7 @@ public class Generator {
 		int randomInt;
 		
 		do{
-			randomInt = (int)(Math.random() * upperBound) + 1;
+			randomInt = (int)(Math.random() * upperBound - 2) + 1;
 		}while(randomInt < (upperBound-1));
 		
 		return randomInt;
