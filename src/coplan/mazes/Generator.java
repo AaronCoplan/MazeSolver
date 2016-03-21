@@ -206,8 +206,10 @@ public class Generator {
 		
 		while(numRemovals > 0)
 		{			
-			int randRow = (int)(Math.random()*(numRows));
-			int randCol = (int)(Math.random()*(numCols));	
+			//write method to generate these numbers to ensure they are never equal to 
+			//zero or ever equal to numRows-1
+			int randRow = getRandomInt(numRows);
+			int randCol = getRandomInt(numCols);	
 			
 			if(cellMaze[randRow][randCol].getNumOpening() > 1)
 			{
@@ -251,6 +253,17 @@ public class Generator {
 			}
 			numRemovals--;
 		}
+	}
+	
+	private int getRandomInt(int upperBound){
+		System.out.println(upperBound);
+		int randomInt;
+		
+		do{
+			randomInt = (int)(Math.random() * upperBound) + 1;
+		}while(randomInt < (upperBound-1));
+		
+		return randomInt;
 	}
 	
 	private void generateMaze(int cx, int cy){

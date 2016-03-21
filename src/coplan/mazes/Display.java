@@ -149,7 +149,12 @@ public class Display {
 
 		Cell[][] cellMaze = maze.getCellMaze();
 
-		final int LINE_SIZE = 2;
+		final int LINE_SIZE;
+		if(maze.getWidth() >= 85 || maze.getHeight() >= 85){
+			LINE_SIZE = 1;
+		}else{
+			LINE_SIZE = 2;
+		}
 
 		for(int row = 0; row < maze.getHeight(); row++){
 			for(int col = 0; col < maze.getWidth(); col++){
@@ -203,7 +208,12 @@ public class Display {
 
 		Cell[][] solutionMaze = maze.getSolution();
 
-		final int LINE_SIZE = 2;
+		final int LINE_SIZE;
+		if(maze.getWidth() >= 85 || maze.getHeight() >= 85){
+			LINE_SIZE = 1;
+		}else{
+			LINE_SIZE = 2;
+		}
 
 		for(int row = 0; row < maze.getHeight(); row++){
 			for(int col = 0; col < maze.getWidth(); col++){
