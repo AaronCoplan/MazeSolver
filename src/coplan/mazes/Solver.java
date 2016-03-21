@@ -12,7 +12,7 @@ public class Solver {
 	
 	private Cell[][] solveMaze(boolean complex){
 		if(complex == true){
-			return complexSolution();
+			return simpleSolution();
 		}else{
 			return simpleSolution();
 		}

@@ -55,7 +55,7 @@ public class Generator {
 		if(complex == true){
 			ActionTimer complexTimer = new ActionTimer();
 			complexTimer.start();
-			makeComplex();
+		//	makeComplex();
 			complexTimer.stop();
 			System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
 		}
@@ -65,6 +65,15 @@ public class Generator {
 		this.cellMaze = translateToCells();
 		translation2Timer.stop();
 		System.out.println("Time to translate to cells: " + translation2Timer.getTimeElapsed());
+		
+		//if the complex variable is true, make it complex
+		if(complex == true){
+			ActionTimer complexTimer = new ActionTimer();
+			complexTimer.start();
+			makeCellComplex();
+			complexTimer.stop();
+			System.out.println("Time to make maze complex: " + complexTimer.getTimeElapsed());
+		}
 		
 		ActionTimer.sumTimes(generationTimer.getTimeElapsed(), translation1Timer.getTimeElapsed(), translation2Timer.getTimeElapsed(), "for generation");
 		
@@ -184,6 +193,63 @@ public class Generator {
 					numRemovals--;
 				}
 			}
+		}
+	}
+	
+	private void makeCellComplex()
+	{
+		int numRows = cellMaze[0].length;
+		int numCols = cellMaze.length;
+		
+		int area = numRows*numCols;
+		int numRemovals = area/20;
+		
+		while(numRemovals > 0)
+		{			
+			int randRow = (int)(Math.random()*(numRows));
+			int randCol = (int)(Math.random()*(numCols));	
+			
+			if(cellMaze[randRow][randCol].getNumOpening() > 2)
+			{
+				boolean wallWasRemoved = false;
+				do{
+					int randInt = (int)(Math.random()*4);
+					if(randInt == 0)
+					{
+						if(!cellMaze[randRow][randCol].isLeftOpen())
+						{
+							cellMaze[randRow][randCol].setLeftOpening(true);
+							cellMaze[randRow-1][randCol].setRightOpening(true);
+							wallWasRemoved = true;
+						}
+					}
+					else if(randInt == 1)
+					{
+						{
+							cellMaze[randRow][randCol].setRightOpening(true);
+							cellMaze[randRow+1][randCol].setLeftOpening(true);
+							wallWasRemoved = true;
+						}
+					}
+					else if(randInt == 2)
+					{
+						{
+							cellMaze[randRow][randCol].setTopOpening(true);
+							cellMaze[randRow][randCol+1].setBottomOpening(true);
+							wallWasRemoved = true;
+						}
+					}
+					else if (randInt == 3)
+					{
+						{
+							cellMaze[randRow][randCol].setBottomOpening(true);
+							cellMaze[randRow][randCol-1].setTopOpening(true);
+							wallWasRemoved = true;
+						}
+					}
+				}while(!wallWasRemoved);
+			}
+			numRemovals--;
 		}
 	}
 	
