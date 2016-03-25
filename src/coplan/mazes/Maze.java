@@ -15,6 +15,8 @@ public class Maze {
 		this.cellMaze = cellMaze;
 		this.complex = complex;
 		
+		translateToBinary();
+		
 		this.solveMaze();
 		//calculate difficulty -> this.difficulty = calculateDifficulty(rows, cols, binaryMaze);
 	}
@@ -30,9 +32,12 @@ public class Maze {
 		this.cellSolution = solver.getSolution();
 	}
 	
-	//this needs implemented
-	public boolean[][] getBinaryMaze()
-	{
+	private void translateToBinary(){
+		//translate the Cell[][] to Boolean[][] for solving purposes
+		//this will improve the ability to solve complex mazes
+		
+		//go cell by cell, only looking at the right and bottom borders of each cell
+		
 		binaryMaze = new boolean[ROWS*2+1][COLS*2+1];
 		
 		for(int row = 0; row < ROWS*2+1; row++)
@@ -43,8 +48,21 @@ public class Maze {
 			}
 		}
 		
-		return new boolean[1][1];
-		
+		printBinaryMaze();
+	}
+	
+	private void printBinaryMaze(){
+		for(int row = 0; row < binaryMaze.length; row++){
+			for(int col = 0; col < binaryMaze[0].length; col++){
+				String str = binaryMaze[row][col] + "";
+				System.out.print(str.substring(0,1) + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public boolean[][] getBinaryMaze(){
+		return binaryMaze;
 	}
 	
 	public Cell[][] getCellMaze(){
