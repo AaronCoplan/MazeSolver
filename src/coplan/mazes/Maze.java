@@ -40,12 +40,27 @@ public class Maze {
 		
 		binaryMaze = new boolean[ROWS*2+1][COLS*2+1];
 		
-		for(int row = 0; row < ROWS*2+1; row++)
-		{
-			for(int col = 0; col < ROWS*2+1; col++)
-			{
+		int binaryRow = 1;
+		int binaryCol = 1;
+		
+		for(int cellRow = 0; cellRow < cellMaze.length; cellRow++){
+			for(int cellCol = 0; cellCol < cellMaze[0].length; cellCol++){
+				Cell c = cellMaze[cellRow][cellCol];
 				
+				binaryMaze[binaryRow][binaryCol] = true;
+				
+				if(c.isRightOpen()){
+					binaryMaze[binaryRow][binaryCol + 1] = true;
+				}
+				
+				if(c.isBottomOpen()){
+					binaryMaze[binaryRow + 1][binaryCol] = true;
+				}
+				
+				binaryCol += 2;
 			}
+			binaryCol = 1;
+			binaryRow += 2;
 		}
 		
 		printBinaryMaze();
