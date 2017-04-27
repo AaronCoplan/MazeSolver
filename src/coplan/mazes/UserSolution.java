@@ -10,6 +10,14 @@ public class UserSolution {
         /*
          * User: write solution code here
          */
+
+        while(true){
+            if(moveAPI.canMoveRight()){
+                moveAPI.moveRight();
+            }else if(moveAPI.canMoveDown()){
+                moveAPI.moveDown();
+            }
+        }
         
     }
 }

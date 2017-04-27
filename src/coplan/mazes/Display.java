@@ -341,7 +341,7 @@ public class Display {
 							JOptionPane.showMessageDialog(null, "Running user solution algorithm!");
 						}
 
-						MoveAPI moveAPI = new MoveAPIImpl(maze, 0, 0, obtainGraphics());
+						MoveAPI moveAPI = new MoveAPIImpl(maze, 0, 0, obtainGraphics(), 1000);
 						UserSolution.run(moveAPI);
 
 						reenableComponents();
