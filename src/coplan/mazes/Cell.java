@@ -3,7 +3,7 @@ package coplan.mazes;
 public class Cell {
 
 	private boolean topOpening, rightOpening, bottomOpening, leftOpening;
-	private boolean isStart, isEnd, isSolutionCell;
+	private boolean isStart, isEnd, isSolutionCell, isUserBlockCell;
 	private int numOpenings;
 	
 	public Cell(int topOpening, int rightOpening, int bottomOpening, int leftOpening){
@@ -87,6 +87,8 @@ public class Cell {
 	public void setBottomOpening(boolean state){
 		this.bottomOpening = state;
 	}
+
+	public void setAsUserBlockCell(boolean state){ this.isUserBlockCell = state; }
 	
 	public boolean isLeftOpen(){
 		return leftOpening;
@@ -103,6 +105,8 @@ public class Cell {
 	public boolean isBottomOpen(){
 		return bottomOpening;
 	}
+
+	public boolean isUserBlockCell(){ return isUserBlockCell; }
 	
 	public int getNumOpening(){
 		updateNumOpenings();

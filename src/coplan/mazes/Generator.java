@@ -17,6 +17,7 @@ public class Generator {
 	 * 2 - solution path
 	 * 3 - start
 	 * 4 - end
+	 * 5 - user block
 	 */
 	
 	//these three variables are used for creation of the generationMaze
@@ -101,6 +102,7 @@ public class Generator {
 		}
 		
 		maze[0][0].setAsStart();
+		maze[0][0].setAsUserBlockCell(true);
 		maze[this.y-1][this.x-1].setAsEnd();
 		
 		return maze;

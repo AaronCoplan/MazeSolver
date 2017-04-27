@@ -1,23 +1,10 @@
 package coplan.mazes;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class Display {
 
@@ -25,7 +12,7 @@ public class Display {
 	private JPanel contentPanel, mazePanel, uiPanel;
 	
 	private JTextField widthField, heightField;
-	private JButton generateMazeButton, showSolutionButton, printButton;
+	private JButton generateMazeButton, showSolutionButton, runUserSolutionButton;
 	
 	private Maze maze;
 	
@@ -108,8 +95,8 @@ public class Display {
 		bottomContent.setPreferredSize(new Dimension(150,590));
 		bottomContent.setLayout(new BorderLayout());
 		
-		this.printButton = new JButton("Print Maze");
-		printButton.setPreferredSize(new Dimension(150, 140));
+		this.runUserSolutionButton = new JButton("User Solution");
+		runUserSolutionButton.setPreferredSize(new Dimension(150, 140));
 		
 		this.generateMazeButton = new JButton("Generate Maze");
 		generateMazeButton.setPreferredSize(new Dimension(150, 225));
@@ -119,12 +106,12 @@ public class Display {
 		
 		//add an action listener for the buttons
 		ButtonListener listener = new ButtonListener();
-		printButton.addActionListener(listener);
+		runUserSolutionButton.addActionListener(listener);
 		generateMazeButton.addActionListener(listener);
 		showSolutionButton.addActionListener(listener);
 		
 		
-		bottomContent.add(printButton, BorderLayout.SOUTH);
+		bottomContent.add(runUserSolutionButton, BorderLayout.SOUTH);
 		bottomContent.add(generateMazeButton, BorderLayout.NORTH);
 		bottomContent.add(showSolutionButton, BorderLayout.CENTER);
 		
@@ -133,7 +120,7 @@ public class Display {
 		uiPanel.add(bottomContent, BorderLayout.SOUTH);
 	}
 	
-	public BufferedImage generateMazeImage(Maze maze){
+	public static BufferedImage generateMazeImage(Maze maze){
 		BufferedImage mazeImage = new BufferedImage(850, 850, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = mazeImage.createGraphics();
 		
@@ -162,7 +149,9 @@ public class Display {
 				int x = (col*drawSize);
 				int y = (row*drawSize);
 
-				if(cellMaze[row][col].isStart() || cellMaze[row][col].isEnd()){
+				if(cellMaze[row][col].isUserBlockCell()){
+					g.setColor(Color.CYAN);
+				}else if(cellMaze[row][col].isStart() || cellMaze[row][col].isEnd()){
 					g.setColor(Color.PINK);
 				}else{
 					g.setColor(Color.WHITE);
@@ -221,9 +210,11 @@ public class Display {
 				int x = (col*drawSize);
 				int y = (row*drawSize);
 
-				if(solutionMaze[row][col].isStart() || solutionMaze[row][col].isEnd()){
+				if(solutionMaze[row][col].isUserBlockCell()) {
+					g.setColor(Color.CYAN);
+				}else if(solutionMaze[row][col].isStart() || solutionMaze[row][col].isEnd()){
 					g.setColor(Color.PINK);
-				}else if(solutionMaze[row][col].isSolutionCell()){
+				}else if(solutionMaze[row][col].isSolutionCell()) {
 					g.setColor(Color.GREEN);
 				}else{
 					g.setColor(Color.WHITE);
@@ -337,6 +328,25 @@ public class Display {
 						}
 					}
 				}).start();
+			}else if(source.equals(runUserSolutionButton)){
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						disableComponents();
+
+						if(maze == null){
+							JOptionPane.showMessageDialog(null, "Error: no maze!");
+							return;
+						}else{
+							JOptionPane.showMessageDialog(null, "Running user solution algorithm!");
+						}
+
+						MoveAPI moveAPI = new MoveAPIImpl(maze, 0, 0, obtainGraphics());
+						UserSolution.run(moveAPI);
+
+						reenableComponents();
+					}
+				}).start();
 			}
 			
 			reenableComponents();
@@ -345,7 +355,7 @@ public class Display {
 		private void disableComponents(){
 			generateMazeButton.setEnabled(false);
 			showSolutionButton.setEnabled(false);
-			printButton.setEnabled(false);
+			runUserSolutionButton.setEnabled(false);
 			widthField.setEditable(false);
 			heightField.setEditable(false);
 		}
@@ -353,7 +363,7 @@ public class Display {
 		private void reenableComponents(){
 			generateMazeButton.setEnabled(true);
 			showSolutionButton.setEnabled(true);
-			printButton.setEnabled(true);
+			runUserSolutionButton.setEnabled(true);
 			widthField.setEditable(true);
 			heightField.setEditable(true);
 		}
