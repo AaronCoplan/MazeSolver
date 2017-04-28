@@ -5,11 +5,10 @@ package coplan.mazes;
  */
 public class UserSolution {
 
-    public static void run(MoveAPI moveAPI){
+    public static void run(MoveAPI moveAPI) {
 
         /*
          * User: write solution code here
          */
-        
     }
 }
