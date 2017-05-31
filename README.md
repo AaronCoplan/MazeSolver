@@ -21,7 +21,7 @@ Please feel free to submit any issues, requested features, pull requests, or sam
 # Writing a Solving Algorithm
 
 
-Users may put their solution in the [UserSolution.java] file.  They may create any other files as necessary for their solution, however, the code that is called by the user interface is the `public static void run(MoveAPI moveAPI)` method found in [UserSolution.java], as denoted by the existing comment.  Users have full access to the methods provided by the [MoveAPI.java] interface through the MoveAPI object that is passed into the run method as a parameter.
+Users may put their solution in the [UserSolution.java][UserSolution.java] file.  They may create any other files as necessary for their solution, however, the code that is called by the user interface is the `public static void run(MoveAPI moveAPI)` method found in [UserSolution.java][UserSolution.java], as denoted by the existing comment.  Users have full access to the methods provided by the [MoveAPI.java][MoveAPI.java] interface through the MoveAPI object that is passed into the run method as a parameter.
 
 [UserSolution.java][https://github.com/AaronCoplan/MazeSolver/blob/master/src/coplan/mazes/UserSolution.java]
 [MoveAPI.java][https://github.com/AaronCoplan/MazeSolver/blob/master/src/coplan/mazes/MoveAPI.java]
