@@ -8,6 +8,8 @@ Please note that much of this code is messy and in need of refactoring; however,
 
 Please feel free to submit any issues, requested features, pull requests, or sample maze solving algorithms.
 
+This project is licensed under the MIT License.
+
 # Building and Running
 
 1. Open a shell and navigate to the root directory of this repository (the directory containing this file, `README.md`)
@@ -19,7 +21,6 @@ Please feel free to submit any issues, requested features, pull requests, or sam
 4. Once the UI loads, generate a maze using the button on the right side.  **Important Note:** Do not choose a complex maze!  Complex maze generation is not fully stable.
 
 # Writing a Solving Algorithm
-
 
 Users may put their solution in the [UserSolution.java] file.  They may create any other files as necessary for their solution, however, the code that is called by the user interface is the `public static void run(MoveAPI moveAPI)` method found in [UserSolution.java], as denoted by the existing comment.  Users have full access to the methods provided by the [MoveAPI.java] interface through the MoveAPI object that is passed into the run method as a parameter.
 
